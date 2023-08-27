@@ -6,8 +6,8 @@ export type ElementType = any;
 
 export interface ReactElement {
 	$$typeof: symbol | number;
-	type: Type;
-	key: ElementType;
+	type: ElementType;
+	key: Key;
 	props: Props;
 	ref: Ref;
 	__mark: string;
