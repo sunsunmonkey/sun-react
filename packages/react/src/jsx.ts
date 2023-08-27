@@ -29,7 +29,7 @@ const ReactElement = function (
 export const jsx = (type: ElementType, config: any, ...maybeChildren: any) => {
 	let key: Key = null;
 	const props: Props = {};
-	const ref: Ref = null;
+	let ref: Ref = null;
 
 	for (const prop in config) {
 		const val = config[prop];
@@ -39,6 +39,13 @@ export const jsx = (type: ElementType, config: any, ...maybeChildren: any) => {
 			}
 			continue;
 		}
+		if (prop === 'ref') {
+			if (val !== undefined) {
+				ref = val;
+			}
+			continue;
+		}
+
 		if ({}.hasOwnProperty.call(config, prop)) {
 			props[prop] = val;
 		}
