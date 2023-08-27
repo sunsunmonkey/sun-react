@@ -38,6 +38,9 @@ importers:
       prettier:
         specifier: ^3.0.2
         version: registry.npmmirror.com/prettier@3.0.2
+      rollup:
+        specifier: ^3.28.1
+        version: registry.npmmirror.com/rollup@3.28.1
       typescript:
         specifier: ^5.2.2
         version: registry.npmmirror.com/typescript@5.2.2
@@ -1425,6 +1428,16 @@ packages:
     version: 1.0.0
     dev: true
 
+  registry.npmmirror.com/fsevents@2.3.3:
+    resolution: {integrity: sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/fsevents/-/fsevents-2.3.3.tgz}
+    name: fsevents
+    version: 2.3.3
+    engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
+    os: [darwin]
+    requiresBuild: true
+    dev: true
+    optional: true
+
   registry.npmmirror.com/function-bind@1.1.1:
     resolution: {integrity: sha512-yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/function-bind/-/function-bind-1.1.1.tgz}
     name: function-bind
@@ -2449,6 +2462,16 @@ packages:
     hasBin: true
     dependencies:
       glob: registry.npmmirror.com/glob@7.2.3
+    dev: true
+
+  registry.npmmirror.com/rollup@3.28.1:
+    resolution: {integrity: sha512-R9OMQmIHJm9znrU3m3cpE8uhN0fGdXiawME7aZIpQqvpS/85+Vt1Hq1/yVIcYfOmaQiHjvXkQAoJukvLpau6Yw==, registry: https://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/rollup/-/rollup-3.28.1.tgz}
+    name: rollup
+    version: 3.28.1
+    engines: {node: '>=14.18.0', npm: '>=8.0.0'}
+    hasBin: true
+    optionalDependencies:
+      fsevents: registry.npmmirror.com/fsevents@2.3.3
     dev: true
 
   registry.npmmirror.com/run-applescript@5.0.0:
