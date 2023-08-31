@@ -31,13 +31,13 @@ function perfomUnitOfWork(fiber: FiberNode) {
 	fiber.memoizedProps = fiber.pendingProps;
 
 	if (next == null) {
-		comleteUnitOfWork(fiber);
+		completeUnitOfWork(fiber);
 	} else {
 		workInProgress = next;
 	}
 }
 
-function comleteUnitOfWork(fiber: FiberNode) {
+function completeUnitOfWork(fiber: FiberNode) {
 	let node: FiberNode | null = fiber;
 
 	do {
