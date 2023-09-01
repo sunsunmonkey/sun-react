@@ -1,16 +1,17 @@
 import { beginWork } from './beginWork';
 import { completeWork } from './completeWork';
-import { FiberNode, createWorkInProgress } from './fiber';
+import { FiberNode, FiberRootNode, createWorkInProgress } from './fiber';
 import { HostRoot } from './workTags';
 
 let workInProgress: FiberNode | null = null;
-function prepareFreshStack(root: FiberNode) {
+function prepareFreshStack(root: FiberRootNode) {
 	workInProgress = createWorkInProgress(root.current, {});
 }
 
 export function scheduleUpdateOnFibeer(fiber: FiberNode) {
 	//TODO 调度功能
 	const root = markUpdateFromToRoot(fiber);
+	console.log(root);
 }
 
 function markUpdateFromToRoot(fiber: FiberNode) {
@@ -25,7 +26,7 @@ function markUpdateFromToRoot(fiber: FiberNode) {
 	}
 	return null;
 }
-export function renderRoot(root: FiberNode) {
+export function renderRoot(root: FiberRootNode) {
 	prepareFreshStack(root);
 
 	do {
@@ -33,7 +34,10 @@ export function renderRoot(root: FiberNode) {
 			workLoop();
 			break;
 		} catch (e) {
-			console.warn('workLoop发生错误', e);
+			if (__DEV__) {
+				console.warn('workLoop发生错误', e);
+			}
+
 			workInProgress = null;
 		}
 	} while (true);

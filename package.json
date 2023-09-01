@@ -27,5 +27,8 @@
     "rollup-plugin-generate-package-json": "^3.2.0",
     "rollup-plugin-typescript2": "^0.35.0",
     "typescript": "^5.2.2"
+  },
+  "dependencies": {
+    "@rollup/plugin-replace": "^5.0.2"
   }
 }
