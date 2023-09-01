@@ -1,11 +1,11 @@
 import { beginWork } from './beginWork';
 import { completeWork } from './completeWork';
-import { FiberNode } from './fiber';
+import { FiberNode, createWorkInProgress } from './fiber';
 import { HostRoot } from './workTags';
 
 let workInProgress: FiberNode | null = null;
-function prepareFreshStack(fiber: FiberNode) {
-	workInProgress = fiber;
+function prepareFreshStack(root: FiberNode) {
+	workInProgress = createWorkInProgress(root.current, {});
 }
 
 export function scheduleUpdateOnFibeer(fiber: FiberNode) {
