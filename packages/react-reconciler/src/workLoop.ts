@@ -13,7 +13,7 @@ export function scheduleUpdateOnFibeer(fiber: FiberNode) {
 	const root = markUpdateFromToRoot(fiber);
 	console.log(root);
 }
-
+//获取FiberRoot
 function markUpdateFromToRoot(fiber: FiberNode) {
 	let node = fiber;
 	let parent = node.return;
@@ -49,6 +49,7 @@ function workLoop() {
 	}
 }
 
+//主要递归过程
 function perfomUnitOfWork(fiber: FiberNode) {
 	const next = beginWork(fiber);
 	fiber.memoizedProps = fiber.pendingProps;

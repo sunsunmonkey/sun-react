@@ -9,12 +9,13 @@ export interface UpdateQueue<State> {
 		pending: Update<State> | null;
 	};
 }
+//创建update
 export const createUpdate = <State>(action: Action<State>): Update<State> => {
 	return {
 		action
 	};
 };
-
+//创建update队列
 export const createUpdateQueue = <State>() => {
 	return {
 		shared: {
@@ -22,13 +23,15 @@ export const createUpdateQueue = <State>() => {
 		}
 	} as UpdateQueue<State>;
 };
-
+//将update加入update队列
 export const enqueueUpdate = <State>(
 	updateQueue: UpdateQueue<State>,
 	update: Update<State>
 ) => {
 	updateQueue.shared.pending = update;
 };
+
+//处理执行update队列
 export const processUpdateQueue = <State>(
 	baseState: State,
 	pendingUpdate: Update<State> | null
