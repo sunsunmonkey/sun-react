@@ -5,6 +5,7 @@ import { HostText } from './workTags';
 import { Placement } from './fiberFlags';
 
 function ChildReconciler(shouldTrackEffects: boolean) {
+	//根据element创建fiber
 	function reconcileSingleElement(
 		returnFiber: FiberNode,
 		currentFiber: FiberNode | null,

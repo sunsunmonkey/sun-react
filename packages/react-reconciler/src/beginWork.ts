@@ -30,7 +30,7 @@ function updateHostRoot(wip: FiberNode) {
 	const { memoizedState } = processUpdateQueue(baseState, pending);
 	wip.memoizedState = memoizedState;
 
-	const nextChildren = wip.memoizedProps;
+	const nextChildren = wip.memoizedState;
 	reconcileChildren(wip, nextChildren);
 	return wip.child;
 }
