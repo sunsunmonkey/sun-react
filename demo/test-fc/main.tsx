@@ -1,12 +1,14 @@
-import React from 'react';
+import { useState } from 'react';
 import ReactDOM from 'react-dom/client';
 function App() {
-	return <div>222</div>;
+	const [num] = useState(100);
+
+	return <div>{num}</div>;
 }
-const jsx = (
-	<div>
-		<App></App>
-	</div>
-);
-console.log(<App />);
-ReactDOM.createRoot(document.getElementById('root')!).render(jsx);
+// const jsx = (
+// 	<div>
+// 		<App></App>
+// 	</div>
+// );
+// console.log(<App />);
+ReactDOM.createRoot(document.getElementById('root')!).render(<App />);
