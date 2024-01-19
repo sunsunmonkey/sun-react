@@ -22,32 +22,51 @@ function ChildReconciler(shouldTrackEffects: boolean) {
 			deletions.push(childToDelete);
 		}
 	}
+	function deleteRemainingChildren(
+		returnFiber: FiberNode,
+		currentFirstChild: FiberNode | null
+	) {
+		if (!shouldTrackEffects) {
+			return;
+		}
+		let childToDelete = currentFirstChild;
 
+		while (childToDelete !== null) {
+			deleteChild(returnFiber, childToDelete);
+			childToDelete = childToDelete.sibling;
+		}
+	}
 	//根据element创建fiber
 	function reconcileSingleElement(
 		returnFiber: FiberNode,
 		currentFiber: FiberNode | null,
 		element: ReactElementType
 	) {
-		work: if (currentFiber !== null) {
+		while (currentFiber !== null) {
 			if (currentFiber.key === element.key) {
 				if (element.$$typeof === REACT_ELEMENT) {
+					//key 相同
 					if (currentFiber.type === element.type) {
+						//type 相同
 						const existing = useFiber(currentFiber, element.props);
 						existing.return = returnFiber;
+						// 当前节点可复用，标记剩下的节点删除
+						deleteRemainingChildren(returnFiber, currentFiber.sibling);
 						return existing;
 					}
-					deleteChild(returnFiber, currentFiber);
-					break work;
+					//key 相同 type 不同
+					deleteRemainingChildren(returnFiber, currentFiber);
+					break;
 				} else {
 					if (__DEV__) {
 						console.warn('还未实现的react类型');
-						break work;
+						break;
 					}
 				}
 			} else {
-				//删掉旧的
+				//key不同 删掉旧的
 				deleteChild(returnFiber, currentFiber);
+				currentFiber = currentFiber.sibling;
 			}
 		}
 		const fiber = createFiberFromElement(element);
@@ -60,13 +79,15 @@ function ChildReconciler(shouldTrackEffects: boolean) {
 		currentFiber: FiberNode | null,
 		content: string | number
 	) {
-		if (currentFiber !== null) {
+		while (currentFiber !== null) {
 			if (currentFiber.tag === HostText) {
 				const existing = useFiber(currentFiber, { content });
 				existing.return = returnFiber;
+				deleteRemainingChildren(returnFiber, currentFiber.sibling);
 				return existing;
 			}
 			deleteChild(returnFiber, currentFiber);
+			currentFiber = currentFiber.sibling;
 		}
 		const fiber = new FiberNode(HostText, { content }, null);
 		fiber.return = returnFiber;
