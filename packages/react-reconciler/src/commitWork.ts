@@ -102,7 +102,7 @@ function commitDelete(chidDeletion: FiberNode) {
 		//找到父亲节点
 		const hostParent = getHostParent(chidDeletion);
 		if (hostParent !== null) {
-			removeChild(rootHostNode, hostParent);
+			removeChild((rootHostNode as FiberNode).stateNode, hostParent);
 		}
 	}
 	chidDeletion.return = null;

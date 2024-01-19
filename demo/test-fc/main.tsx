@@ -1,9 +1,14 @@
 import { useState } from 'react';
 import ReactDOM from 'react-dom/client';
 function App() {
-	const [num] = useState(100);
+	const [num, setNum] = useState(100);
+	window.setNum = setNum;
 
-	return <div>{num}</div>;
+	return num === 3 ? <Child /> : <div>{num}</div>;
+}
+
+function Child() {
+	return <div>big-react</div>;
 }
 // const jsx = (
 // 	<div>
