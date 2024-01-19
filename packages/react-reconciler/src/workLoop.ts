@@ -97,10 +97,10 @@ function completeUnitOfWork(fiber: FiberNode) {
 
 	do {
 		completeWork(node);
-		const sibiling = node.sibiling;
+		const sibling = node.sibling;
 
-		if (sibiling !== null) {
-			workInProgress = sibiling;
+		if (sibling !== null) {
+			workInProgress = sibling;
 			return;
 		}
 

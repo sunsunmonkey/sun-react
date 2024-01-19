@@ -12,7 +12,11 @@ import {
 	HostRoot,
 	HostText
 } from './workTags';
-import { NoFlags } from './fiberFlags';
+import { NoFlags, Update } from './fiberFlags';
+
+function markUpdate(fiber: FiberNode) {
+	fiber.flags |= Update;
+}
 
 //递归中的归
 export const completeWork = (wip: FiberNode) => {
@@ -34,6 +38,11 @@ export const completeWork = (wip: FiberNode) => {
 		case HostText:
 			if (current !== null && wip.stateNode) {
 				//update
+				const oldText = current.memoizedProps.content;
+				const newText = newProps.content;
+				if (oldText !== newText) {
+					markUpdate(wip);
+				}
 			} else {
 				//构建dom
 				const instance = createTextInstance(newProps.content);
@@ -70,14 +79,14 @@ function appendAllChildren(parent: Container | Instance, wip: FiberNode) {
 		if (node === wip) {
 			return;
 		}
-		while (node.sibiling === null) {
+		while (node.sibling === null) {
 			if (node.return === null || node.return === wip) {
 				return;
 			}
 			node = node?.return;
 		}
-		node.sibiling.return = node.return;
-		node = node.sibiling;
+		node.sibling.return = node.return;
+		node = node.sibling;
 	}
 }
 //下一级的冒泡到上一级
@@ -89,7 +98,7 @@ function bubbleProperties(wip: FiberNode) {
 		subtreeFlags |= child.flags;
 
 		child.return = wip;
-		child = child.sibiling;
+		child = child.sibling;
 	}
 	wip.subtreeFlags |= subtreeFlags;
 }

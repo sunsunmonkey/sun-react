@@ -36,6 +36,7 @@ function updateFunctionComponent(wip: FiberNode) {
 
 	return wip.child;
 }
+
 function updateHostRoot(wip: FiberNode) {
 	const baseState = wip.memoizedState;
 	const updateQueue = wip.updateQueue as UpdateQueue<Element>;
