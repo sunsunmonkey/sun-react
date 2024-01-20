@@ -63,11 +63,12 @@ function updateState<State>(): [State, Dispatch<State>] {
 		const { memoizedState } = processUpdateQueue(hook.memorizedState, pending);
 		hook.memorizedState = memoizedState;
 	}
+
 	return [hook.memorizedState, queue.dispatch as Dispatch<State>];
 }
 
 function updateWorkInProgressHook(): Hook {
-	// TODO reder阶段触发的更新
+	// TODO render阶段触发的更新
 	let nextCurrentHook: Hook | null;
 
 	if (currentHooK === null) {
