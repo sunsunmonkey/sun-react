@@ -70,18 +70,12 @@ export const jsx = (type: ElementType, config: any, ...maybeChildren: any) => {
 export const Fragment = REACT_FRAGMENT;
 
 export const jsxDEV = (type: ElementType, config: any, jsxKey: Key) => {
-	let key: Key = jsxKey || null;
+	const key: Key = jsxKey || null;
 	const props: Props = {};
 	let ref: Ref = null;
 
 	for (const prop in config) {
 		const val = config[prop];
-		if (prop === 'key') {
-			if (val !== undefined) {
-				key = '' + val;
-			}
-			continue;
-		}
 		if (prop === 'ref') {
 			if (val !== undefined) {
 				ref = val;

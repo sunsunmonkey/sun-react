@@ -104,7 +104,6 @@ function commitDelete(chidDeletion: FiberNode) {
 				recordHostChildrenToDelete(rootChildrenToDelete, unmountFiber);
 				//TODO 解绑ref
 				break;
-				break;
 			case FunctionComponent:
 				//TODO useEffect
 				break;
