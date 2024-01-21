@@ -144,10 +144,12 @@ const commitPlacement = (finishedWork: FiberNode) => {
 	if (__DEV__) {
 		console.warn('执行Placement操作', finishedWork);
 	}
+	console.log(finishedWork);
 	//parent DOM
 	const hostParent = getHostParent(finishedWork);
 	// host sibling
 	const sibling = getHostSibling(finishedWork);
+	console.log(sibling);
 	if (hostParent) {
 		insertOrAppendPlacementNodeIntoContainer(finishedWork, hostParent, sibling);
 	}
@@ -162,7 +164,7 @@ function getHostSibling(fiber: FiberNode) {
 				parent.tag === HostComponent ||
 				parent.tag === HostRoot
 			) {
-				return;
+				return null;
 			}
 			node = parent;
 		}

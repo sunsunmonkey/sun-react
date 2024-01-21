@@ -58,5 +58,6 @@ export function insertChildToContainer(
 	container: Container,
 	before: Instance
 ) {
+	console.log(child, before);
 	container.insertBefore(child, before);
 }
