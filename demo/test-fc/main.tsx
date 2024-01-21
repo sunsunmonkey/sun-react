@@ -6,12 +6,27 @@ function App() {
 		num % 2 === 0
 			? [<li key="1">1</li>, <li key="2">2</li>, <li key="3">3</li>]
 			: [<li key="3">3</li>, <li key="2">2</li>, <li key="1">1</li>];
-	return <ul onClickCapture={() => setNum(num + 1)}>{arr}</ul>;
+	return (
+		<ul onClick={() => setNum(num + 1)}>
+			{arr}
+			<li>3</li>
+			<li>4</li>
+		</ul>
+	);
 }
 
-function Child() {
-	return <div>big-react</div>;
-}
+// function Child() {
+// 	return (
+// 		<ul>
+// 			<>
+// 				<li>1</li>
+// 				<li>2</li>
+// 			</>
+// 			<li>3</li>
+// 			<li>4</li>
+// 		</ul>
+// 	);
+// }
 // const jsx = (
 // 	<div>
 // 		<App></App>

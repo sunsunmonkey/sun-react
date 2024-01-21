@@ -189,7 +189,6 @@ function ChildReconciler(shouldTrackEffects: boolean) {
 	): FiberNode | null {
 		const keyToUse = element.key !== null ? element.key : index;
 		const before = existingChildren.get(keyToUse);
-
 		if (typeof element === 'string' || typeof element === 'number') {
 			//HostText
 			if (before) {
@@ -223,11 +222,17 @@ function ChildReconciler(shouldTrackEffects: boolean) {
 					return createFiberFromElement(element);
 			}
 			//TODO 数组类型
-			if (Array.isArray(element) && __DEV__) {
-				console.warn('还未实现的数组类型');
-				return null;
+			if (Array.isArray(element)) {
+				return updateFragment(
+					returnFiber,
+					before,
+					element,
+					keyToUse,
+					existingChildren
+				);
 			}
 		}
+
 		return null;
 	}
 	return function reconcileChildFibers(
@@ -247,6 +252,9 @@ function ChildReconciler(shouldTrackEffects: boolean) {
 		}
 		//判断fiber类型
 		if (typeof newChild === 'object' && newChild !== null) {
+			if (Array.isArray(newChild)) {
+				return reconcileChildArray(returnFiber, currentFiber, newChild);
+			}
 			switch (newChild.$$typeof) {
 				case REACT_ELEMENT:
 					return placeSingleChild(
@@ -257,10 +265,6 @@ function ChildReconciler(shouldTrackEffects: boolean) {
 						console.warn('未实现的reconcile类型', newChild);
 					}
 					break;
-			}
-
-			if (Array.isArray(newChild)) {
-				return reconcileChildArray(returnFiber, currentFiber, newChild);
 			}
 		}
 

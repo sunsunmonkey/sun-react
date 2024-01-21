@@ -71,23 +71,39 @@ const commitMutationEffectsOnFiber = (finishedWork: FiberNode) => {
 		finishedWork.flags &= ~ChidDeletion;
 	}
 };
-
+function recordHostChildrenToDelete(
+	childrenToDelete: FiberNode[],
+	unmountFiber: FiberNode
+) {
+	//1. 找到第一个root host节点
+	//2. 每找到一个host节点判断这个节点是不是找到那个节点的兄弟
+	const lastOne = childrenToDelete[childrenToDelete.length - 1];
+	if (!lastOne) {
+		childrenToDelete.push(unmountFiber);
+	} else {
+		let node = lastOne.sibling;
+		while (node !== null) {
+			if (unmountFiber === node) {
+				childrenToDelete.push(unmountFiber);
+			}
+			node = node.sibling;
+		}
+	}
+}
 function commitDelete(chidDeletion: FiberNode) {
-	let rootHostNode: FiberNode | null = null;
+	const rootChildrenToDelete: FiberNode[] = [];
 
 	//递归子树
 	commitNestedComponent(chidDeletion, (unmountFiber) => {
 		switch (unmountFiber.tag) {
 			case HostComponent:
-				if (rootHostNode === null) {
-					rootHostNode = unmountFiber;
-				}
+				recordHostChildrenToDelete(rootChildrenToDelete, unmountFiber);
 				//TODO 解绑ref
 				break;
 			case HostText:
-				if (rootHostNode === null) {
-					rootHostNode = unmountFiber;
-				}
+				recordHostChildrenToDelete(rootChildrenToDelete, unmountFiber);
+				//TODO 解绑ref
+				break;
 				break;
 			case FunctionComponent:
 				//TODO useEffect
@@ -100,11 +116,13 @@ function commitDelete(chidDeletion: FiberNode) {
 		}
 	});
 	//移除rootHostNode(自身的根节点)
-	if (rootHostNode !== null) {
+	if (rootChildrenToDelete.length) {
 		//找到父亲节点
 		const hostParent = getHostParent(chidDeletion);
 		if (hostParent !== null) {
-			removeChild((rootHostNode as FiberNode).stateNode, hostParent);
+			rootChildrenToDelete.forEach((node) => {
+				removeChild(node.stateNode, hostParent);
+			});
 		}
 	}
 	chidDeletion.return = null;
@@ -144,12 +162,10 @@ const commitPlacement = (finishedWork: FiberNode) => {
 	if (__DEV__) {
 		console.warn('执行Placement操作', finishedWork);
 	}
-	console.log(finishedWork);
 	//parent DOM
 	const hostParent = getHostParent(finishedWork);
 	// host sibling
 	const sibling = getHostSibling(finishedWork);
-	console.log(sibling);
 	if (hostParent) {
 		insertOrAppendPlacementNodeIntoContainer(finishedWork, hostParent, sibling);
 	}
