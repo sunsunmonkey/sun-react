@@ -7,7 +7,7 @@ import {
 } from './fiber';
 import { REACT_ELEMENT, REACT_FRAGMENT } from 'shared/ReactSymbols';
 import { Fragment, HostText } from './workTags';
-import { ChidDeletion, Placement } from './fiberFlags';
+import { ChildDeletion, Placement } from './fiberFlags';
 
 type ExistingChildren = Map<string | number, FiberNode>;
 
@@ -20,7 +20,7 @@ function ChildReconciler(shouldTrackEffects: boolean) {
 		const deletions = returnFiber.deletions;
 		if (deletions === null) {
 			returnFiber.deletions = [childToDelete];
-			returnFiber.flags |= ChidDeletion;
+			returnFiber.flags |= ChildDeletion;
 		} else {
 			deletions.push(childToDelete);
 		}
