@@ -6,3 +6,11 @@ export const REACT_ELEMENT = supportSymbol
 export const REACT_FRAGMENT = supportSymbol
 	? Symbol.for('react.fragment')
 	: 0xeacb;
+
+export const REACT_CONTEXT = supportSymbol
+	? Symbol.for('react.context')
+	: 0xeacc;
+
+export const REACT_PROVIDER = supportSymbol
+	? Symbol.for('react.provider')
+	: 0xeac2;
