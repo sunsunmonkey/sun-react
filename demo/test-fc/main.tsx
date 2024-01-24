@@ -4,19 +4,24 @@ import ReactDOM from 'react-dom';
 function App() {
 	const [num, update] = useState(100);
 	return (
-		<ul onClick={() => update(50)}>
-			{new Array(num).fill(0).map((_, i) => {
-				return <Child key={i}>{i}</Child>;
-			})}
+		<ul
+			onClick={() => {
+				update(50);
+				update(1000);
+				update(20);
+				update(1);
+			}}
+		>
+			{num}
 		</ul>
 	);
 }
 
-function Child({ children }) {
-	const now = performance.now();
-	while (performance.now() - now < 4) {}
-	return <li>{children}</li>;
-}
+// function Child({ children }) {
+// 	const now = performance.now();
+// 	while (performance.now() - now < 4) {}
+// 	return <li>{children}</li>;
+// }
 // function Child() {
 // 	return (
 // 		<ul>
