@@ -9,12 +9,14 @@ import {
 	enqueueUpdate,
 	processUpdateQueue
 } from './updateQueue';
-import { Action, ReactContext } from 'shared/ReactTypes';
+import { Action, ReactContext, Thenable, Usable } from 'shared/ReactTypes';
 import { scheduleUpdateOnFiber } from './workLoop';
 import { Lane, NoLane, requestUpdateLanes } from './fiberLanes';
 import { Flags, PassiveEffect } from './fiberFlags';
 import { HookHasEffect, Passive } from './hookEffectTags';
 import currentBatchConfig from 'react/src/currentBatchConfig';
+import { REACT_CONTEXT } from 'shared/ReactSymbols';
+import { trackUsedThenable } from './thenable';
 
 let currentlyRenderingFiber: FiberNode | null = null;
 let workInProgressHooK: Hook | null = null;
@@ -78,7 +80,8 @@ const HooksDispatcherOnMount: Dispatcher = {
 	useEffect: mountEffect,
 	useTransition: mountTransition,
 	useRef: mountRef,
-	useContext: readContext
+	useContext: readContext,
+	use
 };
 
 const HooksDispatcherOnUpdate: Dispatcher = {
@@ -86,7 +89,8 @@ const HooksDispatcherOnUpdate: Dispatcher = {
 	useEffect: updateEffect,
 	useTransition: updateTransition,
 	useRef: updateRef,
-	useContext: readContext
+	useContext: readContext,
+	use
 };
 
 function mountEffect(create: EffectCallBack | void, deps: EffectDeps) {
@@ -386,4 +390,24 @@ function readContext<T>(context: ReactContext<T>): T {
 	}
 	const value = context._currentValue;
 	return value;
+}
+
+function use<T>(useable: Usable<T>): T {
+	if (useable !== null && typeof useable === 'object') {
+		if (typeof (useable as Thenable<T>).then === 'function') {
+			//thenable
+			const thenable = useable as Thenable<T>;
+			return trackUsedThenable(thenable);
+		} else if ((useable as ReactContext<T>).$$typeof === REACT_CONTEXT) {
+			const context = useable as ReactContext<T>;
+			return readContext(context);
+		}
+	}
+	throw new Error('不支持的use参数' + useable);
+}
+
+export function resetHooksOnUnwind() {
+	currentlyRenderingFiber = null;
+	currentHooK = null;
+	workInProgressHooK = null;
 }

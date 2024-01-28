@@ -10,7 +10,13 @@ export const PassiveEffect = 0b0001000;
 //useRef
 export const Ref = 0b0010000;
 
-export const MutationMask = Placement | Update | ChildDeletion | Ref;
+export const Visibility = 0b0100000;
+export const DidCapture = 0b1000000;
+//render阶段 捕获到的东西
+export const ShouldCapture = 0b01000000000;
+
+export const MutationMask =
+	Placement | Update | ChildDeletion | Ref | Visibility;
 export const LayoutMask = Ref;
 
 export const PassiveMask = PassiveEffect | ChildDeletion;

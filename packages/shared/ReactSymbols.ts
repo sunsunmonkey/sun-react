@@ -14,3 +14,7 @@ export const REACT_CONTEXT = supportSymbol
 export const REACT_PROVIDER = supportSymbol
 	? Symbol.for('react.provider')
 	: 0xeac2;
+
+export const REACT_SUSPENSE = supportSymbol
+	? Symbol.for('react.suspense')
+	: 0xeac3;
