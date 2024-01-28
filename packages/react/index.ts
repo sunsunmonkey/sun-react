@@ -10,6 +10,7 @@ export {
 	REACT_SUSPENSE as Suspense,
 	REACT_FRAGMENT as Fragment
 } from 'shared/ReactSymbols';
+export { memo } from './src/memo';
 
 export const useState: Dispatcher['useState'] = (initialState) => {
 	const dispatcher = resolveDispatcher();
@@ -36,7 +37,7 @@ export const useContext: Dispatcher['useContext'] = (context) => {
 	return dispatcher.useContext(context);
 };
 
-export const use: Dispatcher['use'] = (useable: Usable<T>) => {
+export const use: Dispatcher['use'] = (useable: Usable<any>) => {
 	const dispatcher = resolveDispatcher();
 	return dispatcher.use(useable);
 };

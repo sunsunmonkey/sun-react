@@ -55,7 +55,11 @@ type EffectCallBack = () => void;
 type EffectDeps = any[] | null;
 
 const { currentDispatcher } = internals;
-export function renderWithHooks(wip: FiberNode, lane: Lane) {
+export function renderWithHooks(
+	wip: FiberNode,
+	Component: FiberNode['type'],
+	lane: Lane
+) {
 	//赋值
 	currentlyRenderingFiber = wip;
 	//重置 hooks链表
@@ -72,7 +76,6 @@ export function renderWithHooks(wip: FiberNode, lane: Lane) {
 		//mount
 		currentDispatcher.current = HooksDispatcherOnMount;
 	}
-	const Component = wip.type;
 	const props = wip.pendingProps;
 	const children = Component(props);
 
