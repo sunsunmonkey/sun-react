@@ -17,7 +17,7 @@ import ReactDOM from 'react-dom';
 // 	);
 // }
 function App() {
-	const [num, update] = useState(0);
+	const [num, update] = useState(1);
 	console.log('App render ', num);
 
 	return (
