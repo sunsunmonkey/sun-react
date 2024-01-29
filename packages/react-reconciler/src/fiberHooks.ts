@@ -25,6 +25,7 @@ import currentBatchConfig from 'react/src/currentBatchConfig';
 import { REACT_CONTEXT } from 'shared/ReactSymbols';
 import { trackUsedThenable } from './thenable';
 import { markWipReceiveUpdate } from './beginWork';
+import { readContext as readContextOrigin } from './fiberContext';
 
 let currentlyRenderingFiber: FiberNode | null = null;
 let workInProgressHooK: Hook | null = null;
@@ -109,7 +110,14 @@ const HooksDispatcherOnUpdate: Dispatcher = {
 	useCallback: updateCallback
 };
 
-function mountEffect(create: EffectCallBack | void, deps: HookDeps) {
+function readContext<Value>(context: ReactContext<Value>): Value {
+	const consumer = currentlyRenderingFiber;
+	return readContextOrigin(consumer, context);
+}
+function mountEffect(
+	create: EffectCallBack | void,
+	deps: HookDeps | undefined
+) {
 	//建立hook间的链表关系
 	const hook = mountWorkInProgressHook();
 	const nextDeps = deps === undefined ? null : deps;
@@ -123,7 +131,10 @@ function mountEffect(create: EffectCallBack | void, deps: HookDeps) {
 	);
 }
 
-function updateEffect(create: EffectCallBack | void, deps: HookDeps) {
+function updateEffect(
+	create: EffectCallBack | void,
+	deps: HookDeps | undefined
+) {
 	//找到当前useState对应的hook数据
 	const hook = updateWorkInProgressHook();
 	const nextDeps = deps === undefined ? null : deps;
@@ -432,15 +443,6 @@ function mountRef<T>(initialValue: T): { current: T } {
 function updateRef<T>(): { current: T } {
 	const hook = updateWorkInProgressHook();
 	return hook.memorizedState;
-}
-
-function readContext<T>(context: ReactContext<T>): T {
-	const consumer = currentlyRenderingFiber;
-	if (consumer === null) {
-		throw new Error('只能在函数组件中调用useContext');
-	}
-	const value = context._currentValue;
-	return value;
 }
 
 function use<T>(useable: Usable<T>): T {
