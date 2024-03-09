@@ -1,0 +1,19 @@
+# Scheduler
+
+Scheduler的触发开始函数
+unstable_scheduleCallback接受一个优先级和一个回调，还有一个options
+
+- 结合optipns的delay记录此开始时间为startTime
+- 结合优先级获得过期时间startTime + timeout
+- 创建task
+- 判断starTime是否大于当前时间如果大于说明还未到处理该任务时间所以放到timerQueue
+- 否则放入taskQueue，然后查看一下是否有任务在执行，没有的就使用requestHostCallback开始调度task中的任务
+- 内部调度实现使用MessageChannel通过port间传输和监听执行回调（该任务属于宏任务所以可以让出线程）
+- port接受到消息后执行performWorkUntilDeadline
+- performWorkUntilDeadline其内部核心其实会执行flushWork 并且接受其返回值如果该返回值为真说明任务还未完成那就需要重新向port发送消息进行下一次调度，同时让出了线程
+- flushWork 中会执行workloop，在执行wookloop之前会检查 timerQueue 中的任务，将到期的任务转到 taskQueue 中，然后循环可以执行的任务在taskQueue里直到遇到时间不到或者需要让出线程的时候（5ms为默认值），在执行过程中的callback同样可以被打断这时候会返回continuationCallback同时存在了task里，同时也会结束循环让出线程承接上面的逻辑返回true，证明未完成任务
+- 如果空了就会检查timertask里的内容同时返回false暂时没有任务
+
+在scheduler中有两个小顶堆一个是timerQueue一个是taskQueue，可以理解为timerQueue是还未开始处理的任务内部根据开始时间排序，taskQueue可以理解为已经开始处理的任务
+
+
