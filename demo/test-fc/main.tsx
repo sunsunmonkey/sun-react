@@ -18,10 +18,14 @@ import ReactDOM from 'react-dom';
 // }
 function App() {
 	const [num, update] = useState(1);
+	useEffect(() => {
+		console.log('启动');
+	}, []);
 	console.log('App render ', num);
 
 	return (
-		<div onClick={() => update(1)}>
+		<div onClick={() => update((num) => num + 1)}>
+			{num}
 			<Cpn />
 		</div>
 	);
