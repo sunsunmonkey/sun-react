@@ -25,8 +25,13 @@ function App() {
 
 	return (
 		<div onClick={() => update((num) => num + 1)}>
-			{num}
-			<Cpn />
+			{num == 1 ? (
+				<Cpn />
+			) : (
+				<>
+					<Cpn /><Cpn />
+				</>
+			)}
 		</div>
 	);
 }

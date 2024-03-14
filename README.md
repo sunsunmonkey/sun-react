@@ -9,13 +9,16 @@
 - [Hook架构](./article/Hook-infra.md)
 - [useState](./article/useState.md)
 - [Scheduler](./article/Scheduler.md)
-  
-  
+- [update和diff](./article/update and diff.md)
+
 
 ✅ 实现和原版react一致的事件机制
 
 ✅ 实现完整的render，commit流程
 
+✅ 单节点和多节点的diff
+
 ✅ 实现Hook架构，同时实现hook有(useState)
 
 ✅ 接入Scheduler调度流程
+
