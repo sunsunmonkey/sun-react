@@ -9,7 +9,7 @@
 - [Hook架构](./article/Hook-infra.md)
 - [useState](./article/useState.md)
 - [Scheduler](./article/Scheduler.md)
-- [update和diff](./article/update and diff.md)
+- [update和diff](./article/update_diff.md)
 
 
 ✅ 实现和原版react一致的事件机制
