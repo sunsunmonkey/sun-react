@@ -1,5 +1,8 @@
-useEffec与useState类似同样是在数据共享层被react暴露
+# useEffect
+
+useEffect与useState类似同样是在数据共享层被react暴露
 在react-reconciler真正实现
+
 ![image.png](https://cdn.nlark.com/yuque/0/2024/png/33634946/1710676144662-05cada9b-33e2-4baf-b580-f9fd071c37b1.png#averageHue=%23141414&clientId=u52eb8c94-c77f-4&from=paste&height=547&id=uc2a7e5be&originHeight=821&originWidth=1120&originalType=binary&ratio=1.5&rotation=0&showTitle=false&size=135880&status=done&style=none&taskId=u6aeb2e3b-08c5-40c7-bae4-990d440738b&title=&width=746.6666666666666)![image.png](https://cdn.nlark.com/yuque/0/2024/png/33634946/1710676155433-220d42d2-c1f4-41f8-9bbb-2d736a9d73f5.png#averageHue=%23151515&clientId=u52eb8c94-c77f-4&from=paste&height=457&id=ua41e4207&originHeight=685&originWidth=1217&originalType=binary&ratio=1.5&rotation=0&showTitle=false&size=111726&status=done&style=none&taskId=ubeff07f7-8765-4cf6-976b-f7cb9295be6&title=&width=811.3333333333334)
 同样useEffect也有mount和update两个函数
 ##  mountEffect
