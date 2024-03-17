@@ -29,7 +29,8 @@ function App() {
 				<Cpn />
 			) : (
 				<>
-					<Cpn /><Cpn />
+					<Cpn />
+					<Cpn />
 				</>
 			)}
 		</div>
@@ -37,7 +38,12 @@ function App() {
 }
 
 function Cpn() {
-	console.log('cpn render');
+	useEffect(() => {
+		console.log('cpn render');
+		return () => {
+			console.log('cpn unmount');
+		};
+	}, []);
 	return <div>cpn</div>;
 }
 // function Child({ children }) {

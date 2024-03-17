@@ -147,7 +147,7 @@ function updateEffect(
 			//浅比较依赖
 			const prevDeps = prevEffect.deps;
 			if (areHookInputsEqual(nextDeps, prevDeps)) {
-				//不相等依赖
+				//相等依赖
 				hook.memorizedState = pushEffect(Passive, create, destroy, nextDeps);
 				return;
 			}

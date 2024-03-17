@@ -8,6 +8,7 @@
 - [mount](./article/mount.md)
 - [Hook架构](./article/Hook-infra.md)
 - [useState](./article/useState.md)
+- [useEffect](./article/useEffect.md)
 - [Scheduler](./article/Scheduler.md)
 - [update和diff](./article/update_diff.md)
 
@@ -18,7 +19,7 @@
 
 ✅ 单节点和多节点的diff
 
-✅ 实现Hook架构，同时实现hook有(useState)
+✅ 实现Hook架构，同时实现hook有( useState , useEffect )
 
 ✅ 接入Scheduler调度流程
 
