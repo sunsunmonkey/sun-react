@@ -1,3 +1,5 @@
+# useContext
+
 useContext用于在函数式组件中访问上下文（Context）的值。
 Context是一种在react不同组件（跨层级，例如父子组件，父孙组件）之间共享，传递数据的机制。
 useContext 的参数是由 createContext 创建，或者是父级上下文 context传递的，通过 Context.Provider 包裹的组件，才能通过 useContext 获取对应的值。可以理解为 useContext 代替之前 Context.Consumer 来获取 Provider 中保存的 value 值。
