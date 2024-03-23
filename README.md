@@ -14,7 +14,8 @@
 - [useContext](./article/useContext.md)
 - [Scheduler](./article/Scheduler.md)
 - [update和diff](./article/update_diff.md)
-  
+- [并发更新](./article/concurrent.md) 
+
 <br>
 
 ✅ 实现和原版react一致的事件机制
@@ -22,6 +23,8 @@
 ✅ 实现完整的render，commit流程
 
 ✅ 单节点和多节点的diff
+
+✅ 实现并发更新流程
 
 ✅ 实现Hook架构，同时实现hook有( useState , useEffect , useTransition , useRef , useContext )
 
