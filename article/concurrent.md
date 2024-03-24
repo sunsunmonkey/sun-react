@@ -1,3 +1,4 @@
+# 并发更新
 ## 事件接入
 我们对于不同的事件会有不同的优先级所以我们使用schedule的runWithPriority将计入schedule的一个变量中去
 ```typescript
