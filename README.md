@@ -2,7 +2,7 @@
 
 接近官方的手写react ⚛️
 
-[解析流程文章](./article/) (持续沉淀更新中...)
+[解析流程文章12篇](./article/) 
 
 - [jsx](./article/jsx.md)
 - [mount](./article/mount.md)
@@ -15,7 +15,8 @@
 - [Scheduler](./article/Scheduler.md)
 - [update和diff](./article/update_diff.md)
 - [并发更新](./article/concurrent.md) 
-
+- [性能优化](./article/performance.md)
+  
 <br>
 
 ✅ 实现和原版react一致的事件机制
@@ -26,10 +27,13 @@
 
 ✅ 实现并发更新流程
 
-✅ 实现Hook架构，同时实现hook有( useState , useEffect , useTransition , useRef , useContext )
+✅ 实现Hook架构，同时实现hook有( useState , useEffect , useTransition , useRef , useContext , useMemo , useCallback)
 
 ✅ 接入Scheduler调度流程
 
 ✅ 接入lane模型
 
+✅ 实现bailout和eagerState的性能优化策略
+
 ✅ 实现与宿主环境无关的noop-render
+
