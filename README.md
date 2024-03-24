@@ -27,12 +27,8 @@
 
 ✅ 实现并发更新流程
 
-✅ 实现Hook架构，同时实现hook有
-<br>
-<br>
-( useState , useEffect , useTransition , useRef , useContext , useMemo , useCallback )
-<br>
-<br>
+✅ 实现Hook架构，同时实现hook有( useState , useEffect , useTransition , useRef , useContext  )
+
 ✅ 接入Scheduler调度流程
 
 ✅ 接入lane模型
